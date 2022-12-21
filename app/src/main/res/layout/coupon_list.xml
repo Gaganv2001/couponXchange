@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="10dp"
+    android:elevation="8dp"
+    app:cardUseCompatPadding="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp">
+
+        <ImageView
+            android:id="@+id/img1"
+            android:layout_width="80dp"
+            android:layout_height="69dp"
+            android:src="@drawable/google" />
+
+        <TextView
+            android:id="@+id/websitename"
+            android:layout_width="150dp"
+            android:layout_height="25dp"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/img1"
+            android:text="This is website"
+            android:textColor="#000"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:id="@+id/wcoupon"
+            android:layout_width="187dp"
+            android:layout_height="42dp"
+            android:layout_below="@id/websitename"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/img1"
+            android:text="This is Coupon "
+            android:textColor="#000"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/cpy_icon"
+            android:layout_width="81dp"
+            android:layout_height="65dp"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center_vertical"
+            android:adjustViewBounds="true"
+            android:padding="15dp"
+            android:scaleType="centerCrop"
+            android:layout_toRightOf="@+id/wcoupon"
+            android:src="@drawable/copy" />
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

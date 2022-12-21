@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1056235950336",
+    "firebase_url": "https://coupxchange-47616-default-rtdb.firebaseio.com",
+    "project_id": "coupxchange-47616",
+    "storage_bucket": "coupxchange-47616.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1056235950336:android:7b771a57bad67ed014a3e5",
+        "android_client_info": {
+          "package_name": "com.example.coupxchange"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1056235950336-mugof13i5cnshk90fhj7uoiagegfcqs9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.coupxchange",
+            "certificate_hash": "2d07e66dcc827f987e41e9289b29437da572da8d"
+          }
+        },
+        {
+          "client_id": "1056235950336-a4n54f7t66f2kfnis7fnknko88ogvfck.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXVOKHGdRHhcXBWWXK3HVQ6LW5XPh8v3c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1056235950336-a4n54f7t66f2kfnis7fnknko88ogvfck.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

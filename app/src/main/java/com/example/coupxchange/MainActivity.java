@@ -2,75 +2,138 @@ package com.example.coupxchange;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
+import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
-import android.widget.Button;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
+import java.util.ArrayList;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+
 
 public class MainActivity extends AppCompatActivity {
 
+    // Initialize variable
 
-    Button logout;
-    Button submit;
-    EditText t1;
-    TextView username;
-
-    String tok;
-    FirebaseDatabase rootNode;
-    DatabaseReference databaseReference;
-
+    private ArrayAdapter<String> adapter;
+    TextView textview;
+    ArrayList<String> items;
+    Dialog dialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        logout=findViewById(R.id.logoutbutton1);
-        submit=findViewById(R.id.button);
-        username=findViewById(R.id.textView2);
-        t1=findViewById(R.id.editTextTextPersonName);
+        // assign variable
+        textview=findViewById(R.id.testView);
+
+        // initialize array list
+        items=new ArrayList<>();
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference reference = database.getReference("Companies");
 
 
 
-        Intent rintent = getIntent();
-        String userEmail = rintent.getStringExtra("usrname");
-        username.setText(userEmail);
 
-
-        submit.setOnClickListener(new View.OnClickListener() {
+        textview.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
+                // Initialize dialog
+                dialog=new Dialog(MainActivity.this);
+
+                // set custom dialog
+                dialog.setContentView(R.layout.dialog_searchable_spinner);
+
+                // set custom height and width
+                dialog.getWindow().setLayout(650,800);
+
+                // set transparent background
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+                // show dialog
+                dialog.show();
+
+                // Initialize and assign variable
+                EditText editText=dialog.findViewById(R.id.edit_text);
+                ListView listView=dialog.findViewById(R.id.list_view);
+
+                // Initialize array adapter
+                ArrayAdapter<String> adapter=new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1,items);
 
 
-                tok=t1.getText().toString();
-                rootNode=FirebaseDatabase.getInstance();
-                databaseReference=rootNode.getReference().child("Tokens");
+                reference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
 
-                Token tokeninfo=new Token(userEmail,tok);
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            String item = snapshot.getValue(String.class);
+                            items.add(item);
+                        }
 
-                databaseReference.push().setValue(tokeninfo);
-                Toast.makeText(MainActivity.this,"Data inserted successfully",Toast.LENGTH_SHORT).show();
+                        // Initialize array adapter
+                        // set adapter
+                        listView.setAdapter(adapter);
+                    }
 
-            }
-        });
+
+                    @Override
+                    public void onCancelled(DatabaseError error) {
+                        // Show error message
+                        Toast.makeText(MainActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                        Log.e("MainActivity", error.getMessage());
+
+                    }
+
+                });
 
 
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
-                 Intent intent= new Intent(MainActivity.this,login.class);
-                startActivity(intent);
+
+                editText.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        adapter.getFilter().filter(s);
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+
+                    }
+                });
+
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        // when item selected from list
+                        // set selected item on textView
+                        textview.setText(adapter.getItem(position));
+
+                        // Dismiss dialog
+                        dialog.dismiss();
+                    }
+                });
             }
         });
     }
-
 }

@@ -15,31 +15,62 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/purple_700" />
+        android:background="@color/lavender"
+        android:textColor="@android:color/white"/>
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tablayout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar"
-        android:background="@color/purple_700"
+        android:background="@color/lavender"
         app:tabIndicatorColor="@color/white"
         app:tabSelectedTextColor="@color/white"
         app:tabTextColor="#B2BEB5">
 
     </com.google.android.material.tabs.TabLayout>
 
+<androidx.core.widget.NestedScrollView
+    android:id="@+id/nestedScrollView"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/vpage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/tablayout1">
-
     </androidx.viewpager2.widget.ViewPager2>
 
 
+</androidx.core.widget.NestedScrollView>
+
+
+
 </LinearLayout>
+
+
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/extFloatingActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:backgroundTint="@color/lavender"
+            android:text="SUBMIT COUPONS"
+            android:textColor="@android:color/white"
+            app:icon="@drawable/ic_baseline_add_24"
+            app:iconTint="@android:color/white" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
@@ -49,6 +80,7 @@
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header"
         app:menu="@menu/nav_menu" />
+
 
 
 </androidx.drawerlayout.widget.DrawerLayout>
